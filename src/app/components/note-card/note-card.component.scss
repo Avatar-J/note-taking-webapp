@@ -1,0 +1,27 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.note-card {
+  width: 300px;
+  min-height: 100px;
+  @include flex(column);
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 8px 8px 2px rgba(black, 0.1);
+
+  h1 {
+    @include TextPreset2;
+    font-weight: 500;
+  }
+
+  .note-detail {
+    overflow: hidden;
+    height: 50px;
+    padding: 5px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
