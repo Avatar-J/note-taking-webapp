@@ -1,0 +1,36 @@
+<section class="form-wrapper">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+        <div class="form-control-container">
+            <label for="title">Note Title</label>
+            <input id="title" placeholder="Enter a title for your note" name="title" formControlName="title" />
+
+            <div class="error" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+                <small *ngIf="form.get('title')?.errors?.['required']">Title is required.</small>
+                <small *ngIf="form.get('title')?.errors?.['minlength']">Title must be at least 5 characters.</small>
+                <!-- <small *ngIf="form.get('title')?.errors?.['profanity']">Please refrain from using profanity.</small> -->
+            </div>
+        </div>
+
+        <div class="form-control-container">
+            <label for="body">Note Content</label>
+            <textarea id="body" placeholder="Write your note content..." name="body" formControlName="body"></textarea>
+
+            <div class="char">{{form.get('body')?.value?.length || 0}}/1000 characters</div>
+
+            <div class="error" *ngIf="form.get('body')?.touched && form.get('body')?.invalid">
+                <small *ngIf="form.get('body')?.errors?.['required']">Post content is required.</small>
+                <small *ngIf="form.get('body')?.errors?.['maxlength']">Content must be under 1000 characters.</small>
+                <!-- <small *ngIf="form.get('body')?.errors?.['profanity']">Please refrain from using profanity.</small> -->
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button class="cancel" (click)="onCancel()">Cancel</button>
+
+            <button class="submit-btn" type="submit" [disabled]="form.invalid">{{submitText}}</button>
+
+        </div>
+
+    </form>
+</section>
