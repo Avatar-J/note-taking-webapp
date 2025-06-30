@@ -1,0 +1,29 @@
+<div class="post-card">
+    <!-- @if(authService.isAuthenticated){
+
+    <div class="access-action">
+        <button class="edit" (click)="onEdit()"><img src="assets/icons8-edit.svg" /></button>
+        <button class="delete" (click)="onDelete()"><img src="assets/icons8-delete.svg" /></button>
+    </div>
+    } -->
+
+    <h1>{{Note?.title}}</h1>
+
+    <div class="post-detail">
+        {{Note?.content}}
+
+    </div>
+
+    <!-- @if(authService.isAuthenticated){
+
+    <div class="action-section">
+        <a [routerLink]="['/view', post.id]">
+            <button class="view">View more</button>
+        </a>
+
+    </div>
+    }
+    @if(isModalActive){
+    <app-modal (closeModal)="toggleModal()" [postId]="`${post.id}`" />
+    } -->
+</div>
