@@ -1,11 +1,12 @@
 import { Component, Input, inject } from '@angular/core';
 import { Note } from '../../models/note';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../../services/data.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-note-card',
-  imports: [],
+  imports: [ModalComponent],
   templateUrl: './note-card.component.html',
   styleUrl: './note-card.component.scss',
 })
@@ -16,13 +17,10 @@ export class NoteCardComponent {
 
   router = inject(Router);
 
-  constructor(
-    // public authService: AuthService,
-    private activatedroute: ActivatedRoute
-  ) {}
+  constructor(private dataService: DataService) {}
 
-  onEdit() {
-    // this.router.navigate(['/edit', this.post.id]);
+  onArchive() {
+    this.dataService.toggleArchive(this.Note.id);
   }
   onDelete() {
     this.toggleModal();

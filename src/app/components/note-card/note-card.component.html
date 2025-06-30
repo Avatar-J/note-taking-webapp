@@ -8,4 +8,13 @@
 
     </div>
 
+    <div class="action-btn">
+        <button (click)="onArchive()">Archive</button>
+        <button (click)="onDelete()">Delete</button>
+    </div>
+
 </div>
+
+@if(isModalActive){
+<app-modal (closeModal)="toggleModal()" />
+}
