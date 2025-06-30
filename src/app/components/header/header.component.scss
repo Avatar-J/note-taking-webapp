@@ -1,0 +1,15 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+@use "../../styles/fonts" as *;
+
+nav {
+  width: 100%;
+  //   background-color: $lavender;
+  min-height: 60px;
+  padding: 10px 20px;
+  @include flex(row, space-between, center);
+
+  h1 {
+    @include TextPreset2;
+  }
+}
