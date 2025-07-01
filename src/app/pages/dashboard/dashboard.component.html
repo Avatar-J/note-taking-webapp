@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<!-- <div class="dashboard-container">
     @if(notes.length === 0){
     <div class="empty-container">
         <img src="assets/Blank canvas-rafiki.svg" />
@@ -16,4 +16,14 @@
     </a>
     }
     }
+</div> -->
+<div class="dashboard">
+    <button><img src="assets/images/icon-plus.svg" />Create New Note</button>
+
+    @for(note of notes; track note.id){
+
+    <app-note-card [Note]="note" />
+
+    }
+
 </div>

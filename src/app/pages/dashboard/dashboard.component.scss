@@ -11,3 +11,20 @@
     width: 300px;
   }
 }
+
+.dashboard {
+  width: 290px;
+  height: 100vh;
+  padding: 20px;
+  @include flex(column, flex-start, stretch, 5px);
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #335cff;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+  }
+}

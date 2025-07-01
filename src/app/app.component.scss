@@ -1,0 +1,17 @@
+@use "../app/styles/mixins" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  width: 100%;
+  @include flex(column);
+
+  .content {
+    @include flex(row);
+  }
+}

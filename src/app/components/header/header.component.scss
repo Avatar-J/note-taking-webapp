@@ -4,12 +4,24 @@
 
 nav {
   width: 100%;
-  //   background-color: $lavender;
-  min-height: 60px;
+  min-height: 81px;
   padding: 10px 20px;
   @include flex(row, space-between, center);
 
   h1 {
     @include TextPreset2;
+  }
+
+  .control {
+    @include flex(row, flex-start, center, 10px);
+
+    input {
+      outline: none;
+      background-color: transparent;
+      padding: 10px 20px;
+      min-height: 44px;
+      border: 1px solid rgb(95, 94, 94);
+      border-radius: 8px;
+    }
   }
 }

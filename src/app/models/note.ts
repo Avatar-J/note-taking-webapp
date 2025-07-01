@@ -5,4 +5,5 @@ export interface Note {
   tags: string[];
   isArchived: boolean;
   createdAt: number;
+  lastModified: number;
 }

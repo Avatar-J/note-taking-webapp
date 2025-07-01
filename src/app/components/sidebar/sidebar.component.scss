@@ -1,0 +1,43 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.sidebar-container {
+  width: 250px;
+  height: 100%;
+  padding: 20px;
+  @include flex(column, flex-start, stretch, 20px);
+
+  .logo-wrapper {
+    min-height: 44px;
+  }
+
+  .navigations {
+    @include flex(column, flex-start, stretch, 10px);
+
+    .nav-link {
+      display: flex;
+      gap: 5px;
+      justify-content: space-between;
+
+      .link-name {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+    }
+  }
+
+  .tags-container {
+    @include flex(column, flex-start, stretch, 10px);
+
+    button {
+      background-color: transparent;
+      outline: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+  }
+}

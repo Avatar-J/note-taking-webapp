@@ -20,25 +20,22 @@ import { DataService } from '../../services/data.service';
 export class FormComponent {
   @Input() Note?: Note;
 
-  private router = inject(Router);
   formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
 
   form!: FormGroup;
 
-  bodyChar: number = 0;
-  submitText: string = 'Create Note';
-
   ngOnInit(): void {
-    if (this.Note) {
-      this.submitText = 'Update Post';
-    }
-
     this.form = this.formBuilder.group({
       title: [
         this.Note?.title || '',
         [Validators.required, Validators.minLength(5)],
       ],
+      tags: [
+        this.Note?.tags?.join(', ') || '',
+        [Validators.required, Validators.pattern(/^(\s*\w+\s*)(,\s*\w+\s*)*$/)],
+      ],
+      date: [this.Note?.lastModified || 'Not yet saved'],
       body: [
         this.Note?.content || '',
         [Validators.required, Validators.maxLength(1000)],
@@ -46,9 +43,7 @@ export class FormComponent {
     });
   }
 
-  onCancel() {
-    this.router.navigate(['']);
-  }
+  onCancel() {}
   onSubmit() {
     if (this.form.valid) {
       const newNote: Note = {
@@ -58,6 +53,7 @@ export class FormComponent {
         tags: this.Note ? this.Note.tags : [],
         isArchived: this.Note ? this.Note.isArchived : false,
         createdAt: this.Note ? this.Note.createdAt : Date.now(),
+        lastModified: this.Note ? this.Note.lastModified : Date.now(),
       };
 
       if (this.Note) {
@@ -66,9 +62,6 @@ export class FormComponent {
       } else {
         this.dataService.createNote(newNote);
         // this.toastService.show('Created new post successfully', 'success');
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 2000);
       }
     }
   }

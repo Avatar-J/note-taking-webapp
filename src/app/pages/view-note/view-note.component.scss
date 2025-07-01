@@ -1,0 +1,45 @@
+@use "../../styles/mixins" as *;
+
+.view-note-container {
+  width: 800px;
+  height: 100vh;
+  padding: 20px;
+  @include flex(row, flex-start, stretch, 20px);
+
+  .control-section {
+    @include flex(column, flex-start, stretch, 20px);
+
+    button {
+      display: flex;
+      width: 240px;
+      align-items: center;
+      gap: 10px;
+      outline: none;
+      border: 1px solid #e0e4ea;
+      background-color: transparent;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  }
+
+  .note-detail {
+    width: 588px;
+    @include flex(column, flex-start, stretch, 20px);
+
+    .section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .section-name {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .line {
+      height: 1px;
+      background-color: #e0e4ea;
+    }
+  }
+}
