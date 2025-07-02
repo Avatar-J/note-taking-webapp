@@ -3,30 +3,26 @@ import { Note } from '../../models/note';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { ModalComponent } from '../modal/modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-note-card',
-  imports: [ModalComponent],
+  imports: [CommonModule],
   templateUrl: './note-card.component.html',
   styleUrl: './note-card.component.scss',
 })
 export class NoteCardComponent {
   @Input() Note!: Note;
 
-  isModalActive: boolean = false;
+  isNoteActive: boolean = false;
 
-  router = inject(Router);
-
-  constructor(private dataService: DataService) {}
-
-  onArchive() {
-    this.dataService.toggleArchive(this.Note.id);
-  }
-  onDelete() {
-    this.toggleModal();
+  constructor(private dataService: DataService) {
+    this.dataService.singleNote$.subscribe((data) => {
+      this.isNoteActive = data?.id === this.Note?.id ? true : false;
+    });
   }
 
-  toggleModal() {
-    this.isModalActive = !this.isModalActive;
+  onNoteSelected() {
+    this.dataService.getNoteById(this.Note.id);
   }
 }

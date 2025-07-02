@@ -30,14 +30,15 @@
 
             <label for="date"><img src="assets/images/icon-clock.svg" />
                 <span>Last Edited</span></label>
-            <input id="date" name="tags" formControlName="tags" placeholder="Not yet saved" readonly />
+            <input id="date" name="date" formControlName="lastModified" placeholder="Not yet saved" readonly />
         </div>
     </div>
 
     <div class="line"></div>
 
     <div class="form-control-container-textarea">
-        <textarea id="body" placeholder="Start typing your note here..." name="body" formControlName="body"></textarea>
+        <textarea id="body" placeholder="Start typing your note here..." name="body"
+            formControlName="content"></textarea>
 
         <div class="error" *ngIf="form.get('body')?.touched && form.get('body')?.invalid">
             <small *ngIf="form.get('body')?.errors?.['required']">Note content is required.</small>

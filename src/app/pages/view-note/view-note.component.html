@@ -2,16 +2,16 @@
 
 <div class="view-note-container">
     <div class="note-detail">
-        <app-form [Note]="(dataService.singleNote | async) || undefined" />
+        <app-form [Note]="selectedNote" />
     </div>
 
 
     <div class="control-section">
-        <button>
+        <button (click)="onArchive()">
             <img src="assets/images/icon-archive.svg" />
-            Archive Note</button>
+            {{archiveText}}</button>
 
-        <button>
+        <button (click)="onDelete()">
             <img src="assets/images/icon-delete.svg" />
             Delete Note</button>
     </div>

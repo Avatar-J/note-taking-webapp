@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -7,7 +14,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Note } from '../../models/note';
 import { DataService } from '../../services/data.service';
 
@@ -17,15 +23,15 @@ import { DataService } from '../../services/data.service';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 })
-export class FormComponent {
-  @Input() Note?: Note;
+export class FormComponent implements OnChanges {
+  @Input() Note: Note | null = null;
 
   formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
 
   form!: FormGroup;
 
-  ngOnInit(): void {
+  constructor() {
     this.form = this.formBuilder.group({
       title: [
         this.Note?.title || '',
@@ -35,13 +41,21 @@ export class FormComponent {
         this.Note?.tags?.join(', ') || '',
         [Validators.required, Validators.pattern(/^(\s*\w+\s*)(,\s*\w+\s*)*$/)],
       ],
-      date: [this.Note?.lastModified || 'Not yet saved'],
-      body: [
+      lastModified: [this.Note?.lastModified || 'Not yet saved'],
+      content: [
         this.Note?.content || '',
         [Validators.required, Validators.maxLength(1000)],
       ],
     });
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.Note) {
+      this.form.patchValue(this.Note);
+    }
+  }
+
+  ngOnInit(): void {}
 
   onCancel() {}
   onSubmit() {

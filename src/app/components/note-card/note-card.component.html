@@ -1,4 +1,4 @@
-<div class="note-card">
+<button class="note-card" (click)="onNoteSelected()" [ngClass]="{'grey': isNoteActive}">
 
 
     <h3>{{Note.title}}</h3>
@@ -20,7 +20,7 @@
         {{Note.createdAt}}
     </div>
 
-</div>
+</button>
 
 <!-- @if(isModalActive){
 <app-modal (closeModal)="toggleModal()" />

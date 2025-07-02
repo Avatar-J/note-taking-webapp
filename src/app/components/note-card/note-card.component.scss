@@ -6,7 +6,10 @@
   min-height: 91px;
   @include flex(column, flex-start, stretch, 5px);
   padding: 5px;
-  overflow: hidden;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
 
   // h1 {
   //   @include TextPreset2;
@@ -31,5 +34,14 @@
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+  .date {
+    display: flex;
+  }
+  h3 {
+    display: flex;
+  }
+  .grey {
+    background-color: rgb(167, 140, 140);
   }
 }

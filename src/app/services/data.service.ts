@@ -11,7 +11,7 @@ export class DataService {
   private notes: Note[] = [
     {
       id: 1,
-      title: 'My name',
+      title: 'My house',
       content: 'Something is crazy about is about to happen',
       tags: ['Cooking', 'dev', 'react'],
       isArchived: false,
@@ -21,8 +21,8 @@ export class DataService {
     {
       id: 2,
       title: 'My name',
-      content: 'Something is crazy about is about to happen',
-      tags: ['Cooking', 'dev', 'react'],
+      content: 'My name is beautiful',
+      tags: ['Personal'],
       isArchived: false,
       createdAt: Date.now(),
       lastModified: Date.now(),
@@ -34,28 +34,30 @@ export class DataService {
   notes$ = this.noteSubject.asObservable();
 
   singleNoteSubject = new BehaviorSubject<Note | null>(null);
-  singleNote = this.singleNoteSubject.asObservable();
+  singleNote$ = this.singleNoteSubject.asObservable();
 
   constructor() {
-    this.singleNoteSubject.next(this.notes[0]);
+    this.notes$.subscribe((data) => this.singleNoteSubject.next(data[0]));
   }
 
   private updateSubject(): void {
     this.noteSubject.next([...this.notes]);
   }
 
-  createNote(note: Omit<Note, 'id' | 'createdAt'>): void {
+  createNote(note: Omit<Note, 'id' | 'createdAt' | 'lastModified'>): void {
     const newNote: Note = {
       ...note,
       id: Date.now(),
       createdAt: Date.now(),
+      lastModified: Date.now(),
     };
     this.notes.push(newNote);
     this.updateSubject();
   }
 
-  getNoteById(id: number): Note | undefined {
-    return this.notes.find((note) => note.id === id);
+  getNoteById(id: number) {
+    const foundNote = this.notes.find((note) => note.id === id) ?? null;
+    this.singleNoteSubject.next(foundNote);
   }
 
   updateNote(id: number, updatedFields: Partial<Note>): void {
@@ -72,7 +74,7 @@ export class DataService {
   }
 
   toggleArchive(id: number): void {
-    const note = this.getNoteById(id);
+    const note = this.notes.find((note) => note.id === id);
     if (note) {
       note.isArchived = !note.isArchived;
       this.updateSubject();
