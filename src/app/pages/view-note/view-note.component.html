@@ -11,9 +11,13 @@
             <img src="assets/images/icon-archive.svg" />
             {{archiveText}}</button>
 
-        <button (click)="onDelete()">
+        <button (click)="toggleModal()">
             <img src="assets/images/icon-delete.svg" />
             Delete Note</button>
     </div>
 </div>
+}
+
+@if(isModalActive){
+<app-modal (closeModal)="toggleModal()" />
 }

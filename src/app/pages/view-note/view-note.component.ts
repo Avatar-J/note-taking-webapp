@@ -3,9 +3,10 @@ import { FormComponent } from '../../components/form/form.component';
 import { DataService } from '../../services/data.service';
 import { Note } from '../../models/note';
 import { CommonModule } from '@angular/common';
+import { ModalComponent } from '../../components/modal/modal.component';
 @Component({
   selector: 'app-view-note',
-  imports: [FormComponent, CommonModule],
+  imports: [FormComponent, CommonModule, ModalComponent],
   templateUrl: './view-note.component.html',
   styleUrl: './view-note.component.scss',
 })
@@ -14,6 +15,7 @@ export class ViewNoteComponent {
   dataService = inject(DataService);
   selectedNote!: Note | null;
   archiveText: string = 'Archive Note';
+  isModalActive: boolean = true;
 
   constructor() {
     this.dataService.notes$.subscribe((data) => {
@@ -41,9 +43,7 @@ export class ViewNoteComponent {
     }
   }
 
-  onDelete() {
-    if (this.selectedNote) {
-      this.dataService.deleteNote(this.selectedNote.id);
-    }
+  toggleModal() {
+    this.isModalActive = !this.isModalActive;
   }
 }

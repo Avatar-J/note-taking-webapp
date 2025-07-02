@@ -12,17 +12,21 @@ export class ModalComponent {
   @Output()
   closeModal = new EventEmitter();
 
-  @Input()
-  NoteId!: number;
-
   dataService = inject(DataService);
   route = inject(ActivatedRoute);
+  noteId!: number | undefined;
+
+  constructor() {
+    this.dataService.singleNote$.subscribe((data) => (this.noteId = data?.id));
+  }
 
   onCancelDelete() {
     this.closeModal.emit();
   }
   onDeletePost() {
-    this.dataService.deleteNote(this.NoteId);
+    if (this.noteId) {
+      this.dataService.deleteNote(this.noteId);
+    }
     this.closeModal.emit();
   }
 }
