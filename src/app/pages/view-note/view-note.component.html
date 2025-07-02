@@ -1,33 +1,8 @@
+@if(!isEmpty){
+
 <div class="view-note-container">
     <div class="note-detail">
-        <app-form />
-
-        <!-- <h1>React Performance Optimization</h1>
-
-        <div class="section">
-            <div class="section-name">
-                <img src="assets/images/icon-tag.svg" />
-                <span>Tags</span>
-            </div>
-            <div>Cooking</div>
-
-        </div>
-
-        <div class="section">
-            <div class="section-name">
-                <img src="assets/images/icon-clock.svg" />
-                <span>Last Edited</span>
-            </div>
-            <div>29th Oct 2024</div>
-
-        </div>
-
-        <div class="line"></div>
-
-        <div class="content">
-            &Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo aut necessitatibus quasi esse provident
-            quae quisquam voluptates. Ipsum culpa non ut quis, earum, aperiam aliquid vel laboriosam ex, magni iste!
-        </div> -->
+        <app-form [Note]="(dataService.singleNote | async) || undefined" />
     </div>
 
 
@@ -41,3 +16,4 @@
             Delete Note</button>
     </div>
 </div>
+}

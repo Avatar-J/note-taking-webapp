@@ -8,9 +8,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  private notes: Note[] = [];
-
-  noteSubject = new BehaviorSubject<Note[]>([
+  private notes: Note[] = [
     {
       id: 1,
       title: 'My name',
@@ -29,8 +27,18 @@ export class DataService {
       createdAt: Date.now(),
       lastModified: Date.now(),
     },
-  ]);
+  ];
+  activeNote!: Note;
+
+  noteSubject = new BehaviorSubject<Note[]>(this.notes);
   notes$ = this.noteSubject.asObservable();
+
+  singleNoteSubject = new BehaviorSubject<Note | null>(null);
+  singleNote = this.singleNoteSubject.asObservable();
+
+  constructor() {
+    this.singleNoteSubject.next(this.notes[0]);
+  }
 
   private updateSubject(): void {
     this.noteSubject.next([...this.notes]);

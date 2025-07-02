@@ -12,10 +12,10 @@ form {
 
   .form-field {
     width: 100%;
-    @include flex(row, flex-start, stretch, 10px);
+    @include flex(row, flex-start, stretch, 5px);
   }
   .form-control-container-textarea {
-    @include flex(column, flex-start, stretch, 10px);
+    @include flex(column, flex-start, stretch, 5px);
     width: 100%;
 
     textarea {

@@ -20,10 +20,18 @@
 <div class="dashboard">
     <button><img src="assets/images/icon-plus.svg" />Create New Note</button>
 
+    @if(notes.length !== 0){
+
     @for(note of notes; track note.id){
 
     <app-note-card [Note]="note" />
 
     }
+    }@else {
+    <div class="empty-list">
+        You don't have any notes yet. Start a new note to capture your thoughts and ideas.
+    </div>
+    }
+
 
 </div>

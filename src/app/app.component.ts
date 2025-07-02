@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ViewNoteComponent } from './pages/view-note/view-note.component';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -19,4 +20,6 @@ import { ViewNoteComponent } from './pages/view-note/view-note.component';
 })
 export class AppComponent {
   title = 'note-taking-webapp';
+
+  dataService = inject(DataService);
 }
