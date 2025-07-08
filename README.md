@@ -1,6 +1,61 @@
 # NoteTakingWebapp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.14.
+A feature-rich note-taking web application built with [Angular CLI](https://github.com/angular/angular-cli) version 19.2.14. It allows users to create, manage, and archive notes with powerful search, theming, accessibility, and responsive layout support.
+
+---
+
+## 🚀 Features
+
+### 📌 Note Management
+
+- Define a `Note` interface/type with fields:
+
+  - `id`: Unique identifier
+  - `title`: Title of the note (required)
+  - `content`: Main body of the note (required)
+  - `tags`: List of tags (e.g., `['work', 'personal']`)
+  - `isArchived`: Boolean flag to indicate archived notes
+  - `createdAt`: Timestamp when the note was created
+
+- Core operations handled by a Notes Service or State Layer:
+  - `Create` new notes
+  - `Read` all or specific notes
+  - `Update` existing notes
+  - `Delete` notes
+  - `Archive/Unarchive` notes
+  - `Search` notes by title, content, or tags
+
+---
+
+### 🧭 Routing Configuration
+
+- `/notes` → Main Notes Dashboard
+- `/archived` → Archived Notes View
+- `/notes/:id` → View/Edit Individual Note
+- `/create` → New Note Creation Form
+- Optional: Protect routes with authentication (Bonus)
+
+---
+
+### 🗂 Notes Dashboard Component
+
+- Responsive grid/list of all **active notes**
+- Search bar to filter notes by **title**, **content**, or **tag**
+- Tag-based filtering
+- Archive/unarchive toggle for each note
+
+---
+
+### 📋 Note Details & Editor
+
+- View, edit, and delete individual notes
+- Form validation (e.g., title and content are required)
+- Display validation errors clearly
+- Keyboard accessibility:
+  - Navigate using keyboard only
+  - Focus outlines for interactive elements
+
+---
 
 ## Development server
 

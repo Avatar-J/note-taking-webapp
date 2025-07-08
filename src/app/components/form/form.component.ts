@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { Note } from '../../models/note';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -28,6 +29,7 @@ export class FormComponent implements OnChanges {
 
   formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
+  router = inject(Router);
 
   form!: FormGroup;
 
@@ -60,11 +62,17 @@ export class FormComponent implements OnChanges {
   onCancel() {}
   onSubmit() {
     if (this.form.valid) {
+      const rawTags = this.form.value.tags || '';
+      const tagArray = rawTags
+        .split(',')
+        .map((tag: string) => tag.trim())
+        .filter((tag: string) => tag.length > 0);
+
       const newNote: Note = {
         id: this.Note ? this.Note.id : 0,
         title: this.form.value.title,
-        content: this.form.value.body,
-        tags: this.Note ? this.Note.tags : [],
+        content: this.form.value.content,
+        tags: tagArray,
         isArchived: this.Note ? this.Note.isArchived : false,
         createdAt: this.Note ? this.Note.createdAt : Date.now(),
         lastModified: this.Note ? this.Note.lastModified : Date.now(),
@@ -72,10 +80,10 @@ export class FormComponent implements OnChanges {
 
       if (this.Note) {
         this.dataService.updateNote(this.Note.id, newNote);
-        // this.toastService.show('Updated post successfully', 'success');
       } else {
+        console.log(newNote);
         this.dataService.createNote(newNote);
-        // this.toastService.show('Created new post successfully', 'success');
+        this.router.navigate([{ outlets: { desktop: ['view'] } }]);
       }
     }
   }

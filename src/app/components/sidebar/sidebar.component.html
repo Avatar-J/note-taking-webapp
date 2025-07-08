@@ -4,7 +4,7 @@
     </div>
 
     <div class="navigations">
-        <div class="nav-link">
+        <div class="nav-link" (click)="dataService.updateSubject()">
             <div class="link-name">
                 <img src="assets/images/icon-home.svg" />
                 <span>All Notes</span>
@@ -13,7 +13,7 @@
             <!-- <img src="assets/images/icon-arrow-right.svg" /> -->
         </div>
 
-        <div class="nav-link">
+        <div class="nav-link" (click)="onArchiveList()">
             <div class="link-name">
                 <img src="assets/images/icon-archive.svg" />
                 <span>Archived Notes</span>
@@ -27,47 +27,47 @@
     <div class="tags-container">
         <strong>Tags</strong>
 
-        <button>
+        <button (click)="onFilterByTag('cooking')">
             <img src="assets/images/icon-tag.svg" />
             <span>Cooking</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('dev')">
             <img src="assets/images/icon-tag.svg" />
             <span>Dev</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('fitness')">
             <img src="assets/images/icon-tag.svg" />
             <span>Fitness</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('health')">
             <img src="assets/images/icon-tag.svg" />
             <span>Health</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('personal')">
             <img src="assets/images/icon-tag.svg" />
             <span>Personal</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('react')">
             <img src="assets/images/icon-tag.svg" />
             <span>React</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('recipes')">
             <img src="assets/images/icon-tag.svg" />
             <span>Recipes</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('shopping')">
             <img src="assets/images/icon-tag.svg" />
             <span>Shopping</span>
         </button>
 
-        <button>
+        <button (click)="onFilterByTag('travel')">
             <img src="assets/images/icon-tag.svg" />
             <span>Travel</span>
         </button>

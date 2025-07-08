@@ -2,7 +2,8 @@
     <h1>All Notes</h1>
 
     <div class="control">
-        <input type="text" placeholder="search by title, content or tags..." />
+        <input type="text" placeholder="search by title, content or tags..." [(ngModel)]="searchQuery"
+            (ngModelChange)="dataService.searchNotes($event)" />
 
         <img src="assets/images/icon-settings.svg" />
     </div>

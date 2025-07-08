@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onCreateNewNote() {
-    this.router.navigate(['/create']);
+    this.router.navigate([{ outlets: { desktop: ['create'] } }]);
+    console.log('new note created');
   }
 }

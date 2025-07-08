@@ -15,7 +15,7 @@ export class ViewNoteComponent {
   dataService = inject(DataService);
   selectedNote!: Note | null;
   archiveText: string = 'Archive Note';
-  isModalActive: boolean = true;
+  isModalActive: boolean = false;
 
   constructor() {
     this.dataService.notes$.subscribe((data) => {

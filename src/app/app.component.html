@@ -1,14 +1,34 @@
 <div class="wrapper">
-  <app-sidebar />
 
-  <main>
+  <main class="mobile-main">
     <app-header />
 
     <div class="content">
-      <app-dashboard />
-      <app-view-note />
-      <!-- <router-outlet /> -->
+      <router-outlet name="mobile" />
     </div>
 
   </main>
+
+
+  <div class="desktop-container">
+
+    <app-sidebar />
+    <main class="desktop-main">
+      <app-header />
+
+      <div class="content">
+        <app-dashboard />
+        <!-- <app-view-note /> -->
+        <router-outlet name="desktop" />
+      </div>
+
+    </main>
+  </div>
+
+
+</div>
+
+<div class="bottom">
+
+  <app-bottom-bar />
 </div>

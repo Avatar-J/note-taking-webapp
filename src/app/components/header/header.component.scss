@@ -8,6 +8,10 @@ nav {
   padding: 10px 20px;
   @include flex(row, space-between, center);
 
+  @include breakpoint(1000px) {
+    width: 100%;
+  }
+
   h1 {
     @include TextPreset2;
   }

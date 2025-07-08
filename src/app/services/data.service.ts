@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  private notes: Note[] = [
+  notes: Note[] = [
     {
       id: 1,
       title: 'My house',
@@ -40,7 +40,7 @@ export class DataService {
     this.notes$.subscribe((data) => this.singleNoteSubject.next(data[0]));
   }
 
-  private updateSubject(): void {
+  updateSubject(): void {
     this.noteSubject.next([...this.notes]);
   }
 
@@ -51,7 +51,7 @@ export class DataService {
       createdAt: Date.now(),
       lastModified: Date.now(),
     };
-    this.notes.push(newNote);
+    this.notes.unshift(newNote);
     this.updateSubject();
   }
 
@@ -81,17 +81,25 @@ export class DataService {
     }
   }
 
-  searchNotes(query: string): Observable<Note[]> {
-    const lowerQuery = query.toLowerCase();
-    return this.notes$.pipe(
-      map((notes) =>
-        notes.filter(
-          (note) =>
-            note.title.toLowerCase().includes(lowerQuery) ||
-            note.content.toLowerCase().includes(lowerQuery) ||
-            note.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
-        )
-      )
+  searchNotes(query: string) {
+    const lowerQuery = query.toLowerCase().trim();
+    const filtered = this.notes.filter(
+      (note) =>
+        note.title.toLowerCase().includes(lowerQuery) ||
+        note.content.toLowerCase().includes(lowerQuery) ||
+        note.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
     );
+
+    this.noteSubject.next(filtered);
+  }
+  filterNotes(tag: string): void {
+    const filtered = this.notes.filter((note) => note.tags.includes(tag));
+
+    this.noteSubject.next(filtered);
+  }
+  showArchivedNotes() {
+    const filtered = this.notes.filter((note) => note.isArchived === true);
+
+    this.noteSubject.next(filtered);
   }
 }
