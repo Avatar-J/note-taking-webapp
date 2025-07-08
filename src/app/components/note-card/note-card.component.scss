@@ -10,21 +10,22 @@
   outline: none;
   border: none;
   cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
 
   // h1 {
   //   @include TextPreset2;
   //   font-weight: 500;
   // }
 
-  .tags-conatiner {
-    width: 100%;
-    @include flex(row, flex-start, center, 10px);
+  // .tags-conatiner {
+  //   width: 100%;
+  //   @include flex(row, flex-start, center, 10px);
 
-    .tag {
-      background-color: #e0e4ea;
-      padding: 3px;
-    }
-  }
+  //   .tag {
+  //     background-color: #e0e4ea;
+  //     padding: 3px;
+  //   }
+  // }
 
   .note-detail {
     overflow: hidden;

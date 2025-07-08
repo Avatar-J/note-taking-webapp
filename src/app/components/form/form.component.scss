@@ -2,6 +2,7 @@
 @use "../../styles/mixins" as *;
 
 form {
+  padding: 10px;
   width: 480px;
   @include flex(column, center, center, 15px);
 
@@ -14,18 +15,25 @@ form {
     width: 100%;
     @include flex(row, flex-start, stretch, 5px);
   }
+  #title {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 5px;
+  }
   .form-control-container-textarea {
     @include flex(column, flex-start, stretch, 5px);
     width: 100%;
 
     textarea {
       background-color: transparent;
-      min-height: 250px;
+      min-height: 200px;
       border-radius: 8px;
       padding: 10px 20px;
       border: none;
       outline: none;
       width: 100%;
+      padding-left: 5px;
     }
     .error {
       width: 100%;
@@ -37,11 +45,13 @@ form {
         font-size: 16px;
       }
     }
-
-    // input.ng-invalid.ng-touched,
-    // textarea.ng-invalid.ng-touched {
-    //   border: 1px solid red;
-    // }
+    textarea:focus {
+      border: 2px solid rgb(68, 68, 240);
+    }
+    input.ng-invalid.ng-touched,
+    textarea.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
   }
 
   .form-control-container {
@@ -60,8 +70,12 @@ form {
     }
 
     label {
-      @include flex(row, flex-start, center, 5px);
-      width: 25%;
+      @include flex(row, flex-start, center, 3px);
+      width: 22%;
+
+      span {
+        font-size: 16px;
+      }
     }
 
     input {
@@ -73,15 +87,14 @@ form {
       border-radius: 8px;
       padding: 10px 20px;
     }
-    // input:focus {
-    //   background-color: rgba($lavender, 0.4);
-    //   border: 2px solid $deep-purple;
-    // }
+    input:focus {
+      border: 2px solid rgb(68, 68, 240);
+    }
 
-    // input.ng-invalid.ng-touched,
-    // textarea.ng-invalid.ng-touched {
-    //   border: 1px solid red;
-    // }
+    input.ng-invalid.ng-touched,
+    textarea.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
 
     .char {
       width: 100%;

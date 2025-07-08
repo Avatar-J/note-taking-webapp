@@ -43,7 +43,11 @@ export class FormComponent implements OnChanges {
         this.Note?.tags?.join(', ') || '',
         [Validators.required, Validators.pattern(/^(\s*\w+\s*)(,\s*\w+\s*)*$/)],
       ],
-      lastModified: [this.Note?.lastModified || 'Not yet saved'],
+      lastModified: [
+        this.Note?.lastModified
+          ? this.formatDate(this.Note.lastModified)
+          : 'Not yet saved',
+      ],
       content: [
         this.Note?.content || '',
         [Validators.required, Validators.maxLength(1000)],
@@ -52,14 +56,30 @@ export class FormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.Note) {
-      this.form.patchValue(this.Note);
-    }
+    const formattedNote = {
+      ...this.Note,
+      lastModified: this.Note?.lastModified
+        ? this.formatDate(this.Note.lastModified)
+        : 'Not yet saved',
+    };
+    this.form.patchValue(formattedNote);
   }
 
   ngOnInit(): void {}
 
-  onCancel() {}
+  private formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+  onCancel() {
+    if (!this.Note) {
+      this.router.navigate([{ outlets: { desktop: ['view'] } }]);
+    }
+  }
   onSubmit() {
     if (this.form.valid) {
       const rawTags = this.form.value.tags || '';

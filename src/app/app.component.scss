@@ -10,8 +10,13 @@
     width: 100%;
   }
 }
-
-.desktop-main {
+.border {
+  height: 100%;
+  width: 1px;
+  background-color: #f0f0f0;
+  margin-right: 5px;
+}
+main {
   width: 100%;
   @include flex(column);
 

@@ -6,7 +6,7 @@
   height: 100%;
   padding: 20px;
   @include flex(column, flex-start, stretch, 20px);
-
+  border-right: 1px solid #f0f0f0;
   .logo-wrapper {
     min-height: 44px;
   }
@@ -26,18 +26,16 @@
       }
     }
   }
-
+  button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
   .tags-container {
     @include flex(column, flex-start, stretch, 10px);
-
-    button {
-      background-color: transparent;
-      outline: none;
-      border: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
   }
 }

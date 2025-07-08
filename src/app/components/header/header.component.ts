@@ -12,8 +12,33 @@ import { DataService } from '../../services/data.service';
 export class HeaderComponent {
   searchQuery: string = '';
   dataService = inject(DataService);
+  menuOpen = false;
 
   constructor(private router: Router) {}
 
-  onSearch() {}
+  ngOnInit(): void {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedFont = localStorage.getItem('font') || 'sans-serif';
+
+    document.body.setAttribute('data-theme', savedTheme);
+    document.body.style.fontFamily = savedFont;
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+  closeMenu() {
+    this.menuOpen = false;
+  }
+  setTheme(theme: 'light' | 'dark'): void {
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    this.menuOpen = false;
+  }
+
+  setFont(font: string): void {
+    document.body.style.fontFamily = font;
+    localStorage.setItem('font', font);
+    this.menuOpen = false;
+  }
 }

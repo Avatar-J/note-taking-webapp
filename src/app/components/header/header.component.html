@@ -5,6 +5,43 @@
         <input type="text" placeholder="search by title, content or tags..." [(ngModel)]="searchQuery"
             (ngModelChange)="dataService.searchNotes($event)" />
 
-        <img src="assets/images/icon-settings.svg" />
+        <button (click)="toggleMenu()">
+
+            <img src="assets/images/icon-settings.svg" />
+        </button>
     </div>
 </nav>
+
+@if (menuOpen) {
+<div class="overlay" (click)="closeMenu()">
+    <div class="header-modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Settings</h2>
+            <button class="close-btn" (click)="closeMenu()">✖</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="setting-section">
+                <strong>Theme</strong>
+                <div class="option-buttons">
+                    <button (click)="setTheme('light')">Light</button>
+                    <button (click)="setTheme('dark')">Dark</button>
+                </div>
+            </div>
+
+            <div class="setting-section">
+                <strong>Font</strong>
+                <div class="option-buttons">
+                    <button (click)="setFont('sans-serif')">Sans-serif</button>
+                    <button (click)="setFont('serif')">Serif</button>
+                    <button (click)="setFont('monospace')">Monospace</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-action">
+            <button class="cancel" (click)="closeMenu()">Close</button>
+        </div>
+    </div>
+</div>
+}
