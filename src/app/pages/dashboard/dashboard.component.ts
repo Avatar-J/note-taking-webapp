@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NoteCardComponent, RouterLink],
+  imports: [NoteCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onCreateNewNote() {
-    this.router.navigate(['/create']);
+    this.router.navigate([{ outlets: { desktop: ['create'] } }]);
+    console.log('new note created');
   }
 }

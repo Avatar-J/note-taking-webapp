@@ -8,27 +8,56 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  private notes: Note[] = [];
+  notes: Note[] = [
+    {
+      id: 1,
+      title: 'My house',
+      content: 'Something is crazy about is about to happen',
+      tags: ['Cooking', 'dev', 'react'],
+      isArchived: false,
+      createdAt: Date.now(),
+      lastModified: Date.now(),
+    },
+    {
+      id: 2,
+      title: 'My name',
+      content: 'My name is beautiful',
+      tags: ['Personal'],
+      isArchived: false,
+      createdAt: Date.now(),
+      lastModified: Date.now(),
+    },
+  ];
+  activeNote!: Note;
 
-  noteSubject = new BehaviorSubject<Note[]>([]);
+  noteSubject = new BehaviorSubject<Note[]>(this.notes);
   notes$ = this.noteSubject.asObservable();
 
-  private updateSubject(): void {
+  singleNoteSubject = new BehaviorSubject<Note | null>(null);
+  singleNote$ = this.singleNoteSubject.asObservable();
+
+  constructor() {
+    this.notes$.subscribe((data) => this.singleNoteSubject.next(data[0]));
+  }
+
+  updateSubject(): void {
     this.noteSubject.next([...this.notes]);
   }
 
-  createNote(note: Omit<Note, 'id' | 'createdAt'>): void {
+  createNote(note: Omit<Note, 'id' | 'createdAt' | 'lastModified'>): void {
     const newNote: Note = {
       ...note,
       id: Date.now(),
       createdAt: Date.now(),
+      lastModified: Date.now(),
     };
-    this.notes.push(newNote);
+    this.notes.unshift(newNote);
     this.updateSubject();
   }
 
-  getNoteById(id: number): Note | undefined {
-    return this.notes.find((note) => note.id === id);
+  getNoteById(id: number) {
+    const foundNote = this.notes.find((note) => note.id === id) ?? null;
+    this.singleNoteSubject.next(foundNote);
   }
 
   updateNote(id: number, updatedFields: Partial<Note>): void {
@@ -45,24 +74,32 @@ export class DataService {
   }
 
   toggleArchive(id: number): void {
-    const note = this.getNoteById(id);
+    const note = this.notes.find((note) => note.id === id);
     if (note) {
       note.isArchived = !note.isArchived;
       this.updateSubject();
     }
   }
 
-  searchNotes(query: string): Observable<Note[]> {
-    const lowerQuery = query.toLowerCase();
-    return this.notes$.pipe(
-      map((notes) =>
-        notes.filter(
-          (note) =>
-            note.title.toLowerCase().includes(lowerQuery) ||
-            note.content.toLowerCase().includes(lowerQuery) ||
-            note.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
-        )
-      )
+  searchNotes(query: string) {
+    const lowerQuery = query.toLowerCase().trim();
+    const filtered = this.notes.filter(
+      (note) =>
+        note.title.toLowerCase().includes(lowerQuery) ||
+        note.content.toLowerCase().includes(lowerQuery) ||
+        note.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
     );
+
+    this.noteSubject.next(filtered);
+  }
+  filterNotes(tag: string): void {
+    const filtered = this.notes.filter((note) => note.tags.includes(tag));
+
+    this.noteSubject.next(filtered);
+  }
+  showArchivedNotes() {
+    const filtered = this.notes.filter((note) => note.isArchived === true);
+
+    this.noteSubject.next(filtered);
   }
 }

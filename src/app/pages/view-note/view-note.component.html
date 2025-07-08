@@ -1,1 +1,24 @@
-<p>view-note works!</p>
+@if(!isEmpty){
+<h1>View and Edit Note</h1>
+<div class="view-note-container">
+
+    <div class="note-detail">
+        <app-form [Note]="selectedNote" />
+    </div>
+
+
+    <div class="control-section">
+        <button (click)="onArchive()">
+            <img src="assets/images/icon-archive.svg" />
+            {{archiveText}}</button>
+
+        <button (click)="toggleModal()">
+            <img src="assets/images/icon-delete.svg" />
+            Delete Note</button>
+    </div>
+</div>
+}
+
+@if(isModalActive){
+<app-modal (closeModal)="toggleModal()" />
+}

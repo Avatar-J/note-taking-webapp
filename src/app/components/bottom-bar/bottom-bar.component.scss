@@ -1,0 +1,19 @@
+.bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: pink;
+  padding-inline: 30px;
+  min-height: 74px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+
+  button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+  }
+}

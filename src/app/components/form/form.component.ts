@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -7,9 +14,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Note } from '../../models/note';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -17,59 +24,91 @@ import { DataService } from '../../services/data.service';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 })
-export class FormComponent {
-  @Input() Note?: Note;
+export class FormComponent implements OnChanges {
+  @Input() Note: Note | null = null;
 
-  private router = inject(Router);
   formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
+  router = inject(Router);
+  showValidity = false;
 
   form!: FormGroup;
 
-  bodyChar: number = 0;
-  submitText: string = 'Create Note';
-
-  ngOnInit(): void {
-    if (this.Note) {
-      this.submitText = 'Update Post';
-    }
-
+  constructor() {
     this.form = this.formBuilder.group({
       title: [
         this.Note?.title || '',
         [Validators.required, Validators.minLength(5)],
       ],
-      body: [
+      tags: [
+        this.Note?.tags?.join(', ') || '',
+        [Validators.required, Validators.pattern(/^(\s*\w+\s*)(,\s*\w+\s*)*$/)],
+      ],
+      lastModified: [
+        this.Note?.lastModified
+          ? this.formatDate(this.Note.lastModified)
+          : 'Not yet saved',
+      ],
+      content: [
         this.Note?.content || '',
         [Validators.required, Validators.maxLength(1000)],
       ],
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const formattedNote = {
+      ...this.Note,
+      lastModified: this.Note?.lastModified
+        ? this.formatDate(this.Note.lastModified)
+        : 'Not yet saved',
+    };
+    this.form.patchValue(formattedNote);
+  }
+
+  ngOnInit(): void {}
+
+  private formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
   onCancel() {
-    this.router.navigate(['']);
+    if (!this.Note) {
+      this.router.navigate([{ outlets: { desktop: ['view'] } }]);
+    }
   }
   onSubmit() {
     if (this.form.valid) {
+      this.showValidity = false;
+      const rawTags = this.form.value.tags || '';
+      const tagArray = rawTags
+        .split(',')
+        .map((tag: string) => tag.trim())
+        .filter((tag: string) => tag.length > 0);
+
       const newNote: Note = {
         id: this.Note ? this.Note.id : 0,
         title: this.form.value.title,
-        content: this.form.value.body,
-        tags: this.Note ? this.Note.tags : [],
+        content: this.form.value.content,
+        tags: tagArray,
         isArchived: this.Note ? this.Note.isArchived : false,
         createdAt: this.Note ? this.Note.createdAt : Date.now(),
+        lastModified: this.Note ? this.Note.lastModified : Date.now(),
       };
 
       if (this.Note) {
         this.dataService.updateNote(this.Note.id, newNote);
-        // this.toastService.show('Updated post successfully', 'success');
       } else {
+        console.log(newNote);
         this.dataService.createNote(newNote);
-        // this.toastService.show('Created new post successfully', 'success');
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 2000);
+        this.router.navigate([{ outlets: { desktop: ['view'] } }]);
       }
+    } else {
+      this.showValidity = true;
     }
   }
 }

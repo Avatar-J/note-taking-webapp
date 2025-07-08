@@ -1,3 +1,18 @@
-<app-header />
+<div class="wrapper">
 
-<router-outlet />
+
+  <app-sidebar />
+  <main>
+    <app-header />
+
+    <div class="content">
+      <app-dashboard />
+      <div class="border"></div>
+      <router-outlet name="desktop" />
+    </div>
+
+  </main>
+
+
+
+</div>

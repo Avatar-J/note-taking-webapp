@@ -1,11 +1,27 @@
-<div class="note-card">
+<button class="note-card" (click)="onNoteSelected()" [ngClass]="{'grey': isNoteActive}">
 
 
-    <h1>{{Note.title}}</h1>
+    <h3>{{Note.title}}</h3>
 
-    <div class="note-detail">
+    <!-- <div class="note-detail">
         {{Note.content}}
+
+    </div> -->
+    <div class="tags-conatiner">
+        @for (tag of Note.tags; track $index) {
+        <span class="tag">
+            {{tag}}
+        </span>
+        }
 
     </div>
 
-</div>
+    <div class="date">
+        {{Note.createdAt | date }}
+    </div>
+
+</button>
+
+<!-- @if(isModalActive){
+<app-modal (closeModal)="toggleModal()" />
+} -->
