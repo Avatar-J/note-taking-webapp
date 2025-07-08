@@ -13,12 +13,14 @@
     width: 400px;
     min-height: 200px;
     background-color: white;
-    @include flex(column, center, center, 20px);
+    @include flex(column, center, center, 30px);
     padding: 20px;
+    border-radius: 20px;
 
     strong {
-      color: $deep-purple;
-      @include TextPreset2;
+      // color: $deep-purple;
+      font-size: 20px;
+      font-weight: bold;
       text-align: center;
     }
 

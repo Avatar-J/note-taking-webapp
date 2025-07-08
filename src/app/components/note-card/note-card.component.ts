@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Note } from '../../models/note';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
@@ -11,17 +11,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './note-card.component.html',
   styleUrl: './note-card.component.scss',
 })
-export class NoteCardComponent {
+export class NoteCardComponent implements OnInit {
   @Input() Note!: Note;
 
   isNoteActive: boolean = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService) {}
+  ngOnInit(): void {
     this.dataService.singleNote$.subscribe((data) => {
       this.isNoteActive = data?.id === this.Note?.id ? true : false;
     });
   }
-
   onNoteSelected() {
     this.dataService.getNoteById(this.Note.id);
   }

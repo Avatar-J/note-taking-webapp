@@ -30,6 +30,7 @@ export class FormComponent implements OnChanges {
   formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
   router = inject(Router);
+  showValidity = false;
 
   form!: FormGroup;
 
@@ -82,6 +83,7 @@ export class FormComponent implements OnChanges {
   }
   onSubmit() {
     if (this.form.valid) {
+      this.showValidity = false;
       const rawTags = this.form.value.tags || '';
       const tagArray = rawTags
         .split(',')
@@ -105,6 +107,8 @@ export class FormComponent implements OnChanges {
         this.dataService.createNote(newNote);
         this.router.navigate([{ outlets: { desktop: ['view'] } }]);
       }
+    } else {
+      this.showValidity = true;
     }
   }
 }

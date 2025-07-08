@@ -24,9 +24,9 @@ main {
     @include flex(row);
   }
 
-  @include breakpoint(1000px) {
-    display: none;
-  }
+  // @include breakpoint(1000px) {
+  //   display: none;
+  // }
 }
 .desktop-container {
   @include breakpoint(1000px) {

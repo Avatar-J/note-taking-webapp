@@ -40,5 +40,11 @@ export class HeaderComponent {
     document.body.style.fontFamily = font;
     localStorage.setItem('font', font);
     this.menuOpen = false;
+    document.body.classList.forEach((classname) => {
+      if (classname.startsWith('font-')) {
+        document.body.classList.remove(classname);
+      }
+      document.body.classList.add(font);
+    });
   }
 }

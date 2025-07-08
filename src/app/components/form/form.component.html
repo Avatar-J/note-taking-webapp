@@ -46,9 +46,15 @@
         </div>
     </div>
 
+    @if(showValidity){
+
+    <div class="form-error-message" *ngIf="form.invalid && form.touched">
+        <small>⚠️ Please fill in all required fields before submitting.</small>
+    </div>
+    }
 
     <div class="action-section">
-        <button class="submit-btn" type="submit" [disabled]="form.invalid">Save Note</button>
+        <button class="submit-btn" type="submit">Save Note</button>
         <button class="cancel" (click)="onCancel()">Cancel</button>
 
 

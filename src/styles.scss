@@ -8,6 +8,7 @@ body[data-theme="light"] {
   --svg-filter: invert(0%);
   --overlay: #111111;
   --modal-text: #111111;
+  --tag-bg: #e0e4ea;
 }
 
 body[data-theme="dark"] {
@@ -16,14 +17,18 @@ body[data-theme="dark"] {
   --svg-filter: invert(100%);
   --overlay: #f5f5f5;
   --modal-text: #111111;
+  --tag-bg: #525866;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+
   font-size: 16px;
+}
+.empty-list {
+  background-color: var(--tag-bg);
 }
 img[src$=".svg"] {
   filter: var(--svg-filter);
@@ -45,7 +50,7 @@ textarea::placeholder {
 body {
   background-color: var(--bg-color) !important;
   color: var(--text-color);
-
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -55,7 +60,9 @@ body {
 .overlay {
   background-color: rgba(0, 0, 0, 0.8) !important;
 }
-
+.modal-container {
+  color: var(--modal-text) !important;
+}
 .header-modal-container {
   color: var(--modal-text) !important;
   padding: 20px;
@@ -87,4 +94,16 @@ h1 {
 a {
   text-decoration: none;
   color: inherit;
+}
+.font-default {
+  // font-family: "Roboto", sans-serif;
+}
+.font-sans {
+  font-family: sans-serif !important;
+}
+.font-serif {
+  font-family: serif !important;
+}
+.font-monospace {
+  font-family: monospace !important;
 }
